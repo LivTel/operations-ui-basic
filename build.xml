@@ -111,7 +111,7 @@
     <echo message="Build number: ${BUILD}" />
 
     <echo message="Jarring" />
-    <jar jarfile="/home/dev/bin/javalib/Operations_UI.jar" basedir="${opsgui.class.dir}" update="true" index="true">
+    <jar jarfile="/home/dev/bin/javalib/Operations_UI.jar" basedir="${class.dir}" update="true" index="true">
       <manifest>				
 	<section name="ngat.opsgui.test.CirclePanel.class">
 	  <attribute name="Java-Bean" value="true"/>

@@ -14,7 +14,6 @@ import ngat.net.IConnection;
 import ngat.net.camp.CAMPClient;
 import ngat.net.cil.*;
 import ngat.opsgui.base.Resources;
-import ngat.rcs.tmm.*;
 import ngat.rcs.tms.TaskModeControllerManagement;
 import ngat.ems.*;
 import ngat.rcs.newstatemodel.*;

@@ -499,7 +499,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 					}
 
-				} else if (status instanceof SkyModelStatus) {
+				/*} else if (status instanceof SkyModelStatus) {
 
 					SkyModelStatus sky = (SkyModelStatus) status;
 					// We dont really get a proper timestamp from these packets
@@ -507,7 +507,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 					long now = System.currentTimeMillis();
 					skyout.println(sdf.format(new Date(now)) + " "
 							+ sky.getExtinctionCat() + " "
-							+ sky.getPrediction());
+							+ sky.getPrediction());*/
 
 				} else if (status instanceof StateModelVariableStatus) {
 

@@ -225,13 +225,13 @@ public class DataFileSingleStreamWriter implements DataLoggerUpdateListener {
 
 		    }
 
-		} else if (status instanceof SkyModelStatus) {
+		/*} else if (status instanceof SkyModelStatus) {
 
 		    SkyModelStatus sky = (SkyModelStatus) status;
 		    // We dont really get a proper timestamp from these packets due to the way SkyModel is updated
 		    long now = System.currentTimeMillis();
 		    out.println(sdf.format(new Date(now)) + " "+sky.getExtinctionCat()+" "+sky.getPrediction());
-
+	*/
 		} else if (status instanceof StateModelVariableStatus) {
 
 		    StateModelVariableStatus sms = (StateModelVariableStatus) status;
