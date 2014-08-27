@@ -1,0 +1,49 @@
+Vertical summary sidebar
+
+  Axes section
+    Az state, position	
+    Alt state, position
+    Rot state, position, mode
+
+  Obs section
+    TAG Id
+    Prog Id
+    Prop Id
+    User Id
+    Group Id
+    Exec time
+    Progress
+    Status
+
+  Sched section (dependant on scheduler impl)
+    Scheduler class/name e.g. Despatching/BDS
+    Contention last/current sweep
+    Sweep time
+
+  Sky section
+    Seeing at zenith/red prediction
+    Seeing cat
+    Photom cat
+
+  Instr section (for each instrument)
+    Name, status, operating temperature
+    
+  Beam section (button to take to full display screen and graphs?)
+    Upper element name, status
+    Lower element name, status
+    Upper tiptilt params
+    Lower Tiptilt params
+
+  Agent section (modal control agent)
+    AIC name e.g. SOCA or Scheduled Ops
+    TODO - unspecified agent-specific parameters
+
+  State variable section (for each SV)
+    Varname, state
+
+
+
+
+
+
+    

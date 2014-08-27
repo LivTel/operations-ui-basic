@@ -1,0 +1,20 @@
+Descriptions of the dialog screens and interfacing for the RCS/Scheduler GUI.
+
+>>ListenerRegistrationPage
+
+This page shows a timeline of each handler for any sort of callback update. Any Handler which registers as
+a listener should also in addition to its Listener interface implement the CallbackRegistration iface.
+
+This allows it to be added to the queue of handlers to enable a primary thread to handle all its registrations.
+
+CallbackRegistration.registerWithProvider(): Informs the handler to register with its provider.
+  
+The registration thread maintains a list of CBRegs and update timings, it calls the above method for
+each handler at the required timings.
+
+When the registration succeeds, a connected StateTimeLine is updated appropriately.
+
+There may need to be a JSPane to allow the number of listeners to be shown - this is likely to be more of
+an engineering page under Engineering tab?
+
+

@@ -1,0 +1,18 @@
+list of available services:
+
+current:
+
+TCM 	Telescope Control and Monitoring via RCS
+METEO	Meteorology via RCS
+PHASE2	Phase2 cache via SMP
+SCHED	Scheduler 
+SKY		Sky model - photom, seeing via RCS
+TASK	Task management system in RCS
+INSTR	Instrument Control and Monitoring via RCS (NOT called ICM)
+
+TBD future:
+
+ERS		Environmental Reactive System in RCS - replacement for current monitors 
+OPS		Operations - state-model and group operations in RCS
+
+

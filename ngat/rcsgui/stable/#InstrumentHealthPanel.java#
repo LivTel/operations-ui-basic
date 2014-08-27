@@ -1,0 +1,74 @@
+/**
+ * 
+ */
+package ngat.rcsgui.stable;
+
+import java.awt.Graphics;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.SimpleTimeZone;
+import java.util.Vector;
+
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+
+/** Display instrument health log as a line with varying colors:-
+ * GREEN  = ONLINE and OKAY
+ * ORANGE = ONLINE and WARN
+ * RED    = ONLINE and FAILED
+ * BLUE   = OFFLINE
+ * 
+ * @author eng
+ *
+ */
+public class InstrumentHealthPanel extends JPanel {
+
+	public static final SimpleTimeZone UTC = new SimpleTimeZone(0, "UTC");
+	
+	long start;
+	long end;
+	
+	private Map<String, InstrumentLogRenderer> instruments;
+	
+	private TimeAxisRenderer timeAxis;
+	
+	public InstrumentHealthPanel() {
+		super(true);
+		
+		// reset start to a fixed hour before now.
+		//start = System.currentTimeMillis();
+	
+		
+		instruments = new HashMap<String, InstrumentLogRenderer>();
+		
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+	}
+	
+	public void addInstrument(String name){
+		InstrumentLogRenderer renderer = new InstrumentLogRenderer(name, 6*3600*1000L);
+		instruments.put(name, renderer);
+		add(renderer);
+		validate();
+		System.err.println("IHP:: add Instrument: "+name);
+	}
+
+	public void addTimeAxis() {
+		
+		timeAxis = new TimeAxisRenderer(6*3600*1000L);
+		add(timeAxis);
+		
+	}
+	
+	public void updateInstrument(String name, long time, int state) {
+		System.err.println("IHP::updateInstrument("+name+", "+state);
+		InstrumentLogRenderer log = instruments.get(name);
+		log.addItem(new InstrumentData(time, state));
+		log.repaint();
+		timeAxis.repaint();
+	}
+	
+}

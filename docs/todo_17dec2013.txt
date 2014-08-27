@@ -1,0 +1,88 @@
+some stuff to do wrt opsgui and telemetry feeds:
+
+telemetry services:
+-------------------
+
+rcs-operations feed
+ needs to provide MCA changes as well as integrate the GOM which though
+  its a feed, is not compliant feed.
+
+
+sms-smp feed:
+  - we want the existing p2 update events to become compliant (status interface)  
+  - smp must forward its updates to external listeners ie
+  - SynopticModelArchiveGateway impl Phase2UpdateListener, AccountUpdateListener, HistUpdateListener
+  
+
+opsgui:
+-------
+
+phase2-perspective:
+
+ - link smp gateway events to allow update
+   - 
+
+
+
+
+tracking-perspective:
+
+ - aitoff
+   - target list concept
+     (list of targets - name, desc, id)  
+      target list rendererpanel 
+      - symbol type, color, italic/plain
+   
+   - select which target lists are displayed - key on sidebar of aitoff 
+     (symbol/color/font/id, desc as tooltip)
+   
+   - astrometry catalog provider 
+     - listCatalogs() ; list of catalogs with idents.
+
+
+   - push stuff onto aitoff from scheduler/ops feeds - this group starting, done now.
+
+ - menus
+   - overlay menu
+     - on/off for history or hist 1h, 2h, 4h etc
+     - maybe history age coloring ?
+     - each targetlist - on/off
+
+
+   - targetlist menu
+    - load targetlist - from file or via astroprovider
+      when add tlist
+       -add a tlist menu to the menu
+       -add key element to legend (targetlistrendererpanel)
+
+     
+
+
+
+
+
+Tracking perspective Menu layouts
+---------------------------------
+
+overlays (cb items)
+  - ra grid
+  - dec grid
+  - altaz grid
+  - skybrightness
+  - history
+    - off
+    - 30m
+    - 1h
+    - 2h
+    - 4h
+    - all
+  - tl1 target list on/off
+  - tl2 target list on/off
+  - tlN target list on/off
+ 
+  
+targets
+ - load from file ...
+ - load from astrocatprovider ...
+ - new ... (create a list manually)
+ - single target ... (enter ra/dec/name)

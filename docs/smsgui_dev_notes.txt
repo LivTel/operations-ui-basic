@@ -1,0 +1,38 @@
+some stuff for the sms gui
+
+
+various tabs:
+
+1. current sweep - what metrics etc for each group and how ranked
+
+2. historic sweeps - what won and score and metrics.
+
+3. prescan - lookahead for whole night feasibility display
+
+4. LAS - current sequence
+
+graph areas:
+
+predicted score as fn of time
+actual score as night progresses - eg penalty effect of following LAS sequence and conditions deteriorate
+
+LAS parameters and metrics:
+- current horizon, time elapse, time-to-go
+- various trigger, threshold and cut-off param values
+- values of various quantities monitored for adaptation purposes  
+   - actual v predicted exec times
+   - exec/actual
+   - stability params
+   - volatility params (various rho and omega values, deltacc, deltacd etc)
+- values of adaptive functions like q(t)
+
+- graphs of various metrics of running groups thro night
+
+5. Tracking list.
+- A list of groups we want to watch thro the night.
+	For each group we have a detail panel showing:-
+	- on which sweeps does it not get considered
+	- on which sweeps does it get scored (but not selected)
+	- when does it get selected
+	
+	- Thse could be plotted on some kind of score type graph thro night.

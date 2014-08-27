@@ -1,0 +1,65 @@
+some things wanted in the rcsgui.
+
+some stuff should always be visible. (mainly these are things already being done in original rcsgui)
+
+	-rcs state variables - these show how the rcs is thinking (wrt its state model)
+	-current state (ie the current statemodel state)
+	-operating mode/agent in control
+	-transitional operations (open/close/start/etc)
+	-instrument summary (state of each instrument offline/ok/warn and maybe temperature) - link to inst panel
+	-current sky conditions - link takes direct to sky panel
+	-scheduler and lower model states
+	
+new stuff in the always visible category
+
+	-mech summary (what are the axes doing az=track, alt=track, rot=slew etc)
+	-current observation (summary ie ids)- link takes direct to full observation panel
+	
+displays - these are category-specific items
+	
+	-mech 
+	-meteo (various additional external sensors like cloud), dust data would be good also (from tng)
+	-sec mech
+	
+	
+graphs - these are sets of graphs under a category
+	
+	-mech
+	-meteo
+	
+Envisage a tab per category the show 1 or 2 value tabs and a tab with all the graphs subordinate to it
+
+Instruments
+
+	-tab per instrument and status display subtab, multigraph subtab
+	
+	
+Instrument health panel - shows time display of instrument state for all instruments
+
+Summary graphs - ie thumbnails (9/16 per tab page)- maybe allow user to select graphs to put onto thumbnails
+and allow them to shift the positions around.
+
+Useful to be able to see longer periods rather than just 1 hour or whatever its set to.
+	
+Some things which are not really operations but more robotics - ie analyzing the behaviour of the rcs.
+	
+	-display the state of the various weather (and other) rules - ie have they triggered, are they
+	 in a 50% of the way to ok state ?....this could be in a colorized timeline format
+	-show seeing histogram as it builds up - maybe distinguish stds and others...
+	-agent information - expandable - ie each agent has specific info in it.
+	-task analyzer - show tree of current tasks - events signaled back when task completes, initd, new tasks
+	created under it, etc.
+	-task parallelism - show waterfall plot of what each active (executive) task is doing, not mgrs.
+	
+	
+	
+	
+	
+	 
+
+
+
+
+
+
+	 

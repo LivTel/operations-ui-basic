@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<project name="Operations UI" default="jar" basedir=".">
+
+  <description>
+    "Scheduler GUI"
+  </description>
+
+  <property environment="env" />
+
+  <!-- Source Directories -->
+  <property name="project.dir" value="." />
+  <property name="config.dir" value="${project.dir}/config" />
+  <property name="src.dir" value="${project.dir}" />
+
+
+  <!-- Build Directories -->
+  <property name = "build.dir" value = "${env.HOME}/build/opsui"/>
+  <property name = "class.dir"  value = "${build.dir}/java"/>
+
+  <property name= "javalib.dir" value="${env.LT_HOME}/bin/javalib" />
+  <property name= "javalib.3p.dir" value="${env.LT_HOME}/bin/javalib_third_party"/>
+  <property name= "javalib.3p.jibx.dir" value="${env.LT_HOME}/bin/javalib_third_party/jibx"/>
+  
+  <property name="jar" value="Operations_UI.jar" />
+
+  
+  <!-- Prepare build directories -->
+  <target name="prepare-opsgui" description="Prepare build directories">
+    <mkdir dir="${class.dir}" />
+    <tstamp>
+      <format property="BUILD" pattern="yyyyMMdd_HHmm" locale="en" />
+    </tstamp>
+    <echo message="Build date: ${BUILD}" />
+  </target>
+
+  <!-- Cleanup dross -->
+
+  <target name="clean" description="Clean out dross">
+    <delete verbose="true">
+      <fileset dir="." includes="**/*~" defaultexcludes="false" />
+    </delete>
+  </target>
+
+  <!-- Compile all sources -->
+  <target name="compile-opsgui" depends="prepare-opsgui" description="Compile sources">
+    <javac srcdir = "${src.dir}"  
+	   destdir = "${class.dir}" 
+	   source = "1.5" 
+	   target = "1.5" 
+	   includeAntRuntime = "false" 
+	   debug = "on">
+
+      <classpath>
+	<pathelement path="${classpath}" />
+	<fileset dir="${javalib.dir}">
+	  <include name="*.jar" />
+	</fileset>
+	<fileset dir="${javalib.3p.dir}">
+	  <include name="*.jar" />
+	</fileset>
+	<fileset dir="${javalib.3p.jibx.dir}">
+	  <include name="*.jar" />
+	</fileset>
+      </classpath>
+    </javac>
+  </target>
+  
+  <!-- Generate RMI stubs and skeletons -->
+  <target name="rmic-opsgui" depends="compile-opsgui" description="Generate RMI stubs">
+    <rmic debug="true" base="${class.dir}" 
+	  includes="ngat/opsgui/services/TelescopeStatusHandlerService.class,
+		    ngat/opsgui/services/InstrumentStatusHandlerService.class,
+		    ngat/opsgui/services/TaskLifecycleEventHandlerService.class,
+		    ngat/opsgui/services/MeteorologyStatusHandlerService.class.
+		    ngat/opsgui/services/SkyModelHandlerService.class,
+		    ngat/opsgui/base/RSMReciever.class,
+		    ngat/opsgui/test/TcmAxisDisplayTest.class,
+		    ngat/opsgui/test/OpsStateChangeHandlerTest.class,
+		    ngat/rcsgui/stable/ObservationUpdateListener.class,
+		    ngat/rcsgui/stable/InstrumentStatusHandler.class, 
+		    ngat/rcsgui/test/TestTaskLifecycleHandler.class,
+		    ngat/rcsgui/test/PanelNestingTestUpdater.class,
+		    ngat/rcsgui/stable/MonitorStateDisplayHandler.class,
+		    ngat/rcsgui/test/MechSkyPlotHandler.class,
+		    ngat/rcsgui/stable/TestScheduleListener.class,
+		    ngat/rcsgui/test/WeatherRulesUpdateHandler.class,
+		    ngat/rcsgui/test/TestAdvancedSkyPanel$SkyModelUpdateHandler.class,
+		    ngat/rcsgui/test/TestSweepScheduleListener.class,
+		    ngat/rcsgui/stable/CilCommandHandler.class,
+		    ngat/rcsgui/test/TaskDisplayHandler.class, 
+		    ngat/smsgui/test/TestGui.class,
+		    ngat/opsgui/base/TopPanel.class,
+		    ngat/smsgui/test/PanelNestingTestUpdater.class"
+	  stubversion="1.2">
+      <classpath>
+	<pathelement path="${classpath}" />
+	<fileset dir="${javalib.dir}">
+	  <include name="*.jar" />
+	</fileset>
+      </classpath>
+    </rmic>
+  </target>
+  
+
+
+
+  <!-- Deploy to JAR -->
+
+  <target name="jar" depends="rmic-opsgui" description="Create class JAR">
+    <echo message="Build number: ${BUILD}" />
+
+    <echo message="Jarring" />
+    <jar jarfile="/home/dev/bin/javalib/Operations_UI.jar" basedir="${opsgui.class.dir}" update="true" index="true">
+      <manifest>				
+	<section name="ngat.opsgui.test.CirclePanel.class">
+	  <attribute name="Java-Bean" value="true"/>
+	</section>		
+	<section name="ngat.opsgui.util.StatusHistoryPanel.class">
+	  <attribute name="Java-Bean" value="true"/>
+	</section>						
+      </manifest>
+    </jar>
+    <echo message="Created jar: ${jar} " />
+    
+    
+  </target>
+
+</project>
+

@@ -1,0 +1,177 @@
+<gui>
+
+  <site>
+    <base.host> rowena  </base.host> 
+    <smp.host> rowena </smp.host>
+    <sched.host> rowena </sched.host>
+    <rcs.host> ltsim1 </rcs.host>
+    <external.host> morgana </external.host>
+  </site>
+
+  <!--<perspective name = "OPS">
+		   <description> Operations </description>
+		   <icon> ops.png </icon>
+  </perspective>
+  <perspective name = "SCHED">
+    <description>  Scheduler </description>
+    <icon> sched.png </icon>
+  </perspective>
+
+
+  <service name = "SCHED"/>
+  <service name = "INST"/>
+  <service name = "TCM"/>
+  <service name = "SKY"/>
+  -->
+
+ <!-- Configuration for users etc -->
+  <config>
+    <!--User: Dr Stephen Fraser-->
+    <user name="snf">
+      <title>Dr</title>
+      <first>Stephen</first>
+      <last>Fraser</last>
+      <icon>/Users/eng/opsgui/icons/wee_snf.png</icon>
+      <layout name="Ops1">
+	<display name="D1" />
+      </layout>
+      <layout name="Ops2">
+	<display name="Da" />
+	<display name="Db" />
+      </layout>
+    </user>
+    <!--User: Mr Neil Clay-->
+    <user name="nrc">
+      <title>Mr</title>
+      <first>Neil</first>
+      <last>Clay</last>
+      <icon />
+    </user>
+    <!--User: Dr Chris Davis-->
+    <user name="cjd">
+      <title>Dr</title>
+      <first>Chris</first>
+      <last>Davis</last>
+      <icon />
+    </user>
+    <!--User: Dr Rob Barnsley -->
+    <user name="rab">
+      <title>Dr</title>
+      <first>Rob</first>
+      <last>Barnsley</last>
+      <icon />
+    </user>
+    <!--User: Mr Chris Mottram-->
+    <user name="cjm">
+      <title>Mr</title>
+      <first>Chris</first>
+      <last>Mottram</last>
+      <icon />
+    </user>
+    <!--User: Dr John Marchant-->
+    <user name="jmm">
+      <title>Dr</title>
+      <first>Jon</first>
+      <last>Marchant</last>
+      <icon />
+    </user>
+    <!--Service: -->
+    <service name="SCHED">
+      <description />
+      <gateway>
+	<name>ScheduleArchiveGateway</name>
+	<host>ltdev1</host>
+      </gateway>
+      <provider>
+	<name>Scheduler</name>
+	<host>ltdev1</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>20000</polling>
+      <bcast>20000</bcast>
+    </service>
+    <!--Service: -->
+    <service name="INSTR">
+      <description />
+      <gateway>
+	<name>InstrumentArchiveGaetway</name>
+	<host>ltsim1</host>
+      </gateway>
+      <provider>
+	<name>InstrumentRegistry</name>
+	<host>ltsim1</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>20000</polling>
+      <bcast>20000</bcast>
+    </service>
+    <!--Service: -->
+    <service name="SKY">
+      <description />
+      <gateway>
+	<name>SkyArchiveGateway</name>
+	<host>ltsim1</host>
+      </gateway>
+      <provider>
+	<name>SkyModel</name>
+	<host>ltsim1</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>20000</polling>
+      <bcast>20000</bcast>
+    </service>
+    <!--Service: -->
+    <service name="TEL">
+      <description />
+      <gateway>
+	<name>TelescopeArchiveGateway</name>
+	<host>ltsim1</host>
+      </gateway>
+      <provider>
+	<name>Telescope</name>
+	<host>ltsim1</host>
+      </provider>
+      <lookback>3600000</lookback>
+      <polling>10000</polling>
+      <bcast>10000</bcast>
+    </service>
+
+    <!--Service: -->
+    <service name="OPS">
+      <description />
+      <gateway>
+	<name>OperationsArchiveGateway</name>
+	<host>ltsim1</host>
+      </gateway>
+      <provider>
+	<name>OperationsManager</name>
+	<host>ltsim1</host>
+      </provider>
+      <lookback>3600000</lookback>
+      <polling>10000</polling>
+      <bcast>10000</bcast>
+    </service>
+
+    <!--Service: -->
+    <service name="ERS">
+      <description />
+      <gateway>
+	<name>ReactiveSystemGateway</name>
+	<host>ltsim1</host>
+      </gateway>
+      <provider>
+	<name>ReactiveSystem</name>
+	<host>ltsim1</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>10000</polling>
+      <bcast>20000</bcast>
+    </service>
+  </config>
+
+
+
+
+</gui>
+
+ 

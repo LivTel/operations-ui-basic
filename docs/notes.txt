@@ -1,0 +1,195 @@
+A collection of random notes generated at various times.
+
+*******************
+* thoughts on setup
+*******************
+svm = create Service manager ()
+
+createSchedulingPerspective(svm)  {
+
+  schedData =  createSchedulingDataStructure()
+     createSweepMasterTable(schedData);
+
+   createSweepHistoryPanel(schedData)
+   linkSweepHistPanelTo LocalProvider(svm);
+
+   createOtherSchedPanels(scheddata)
+   linkOtherPanelsToSource(svm)
+
+} 
+
+*****************
+* scheduling info
+*****************
+
+pick a group off a sweep panel and request its schedule history for night so far:
+
+1. graph its score v sweep time with winning score per sweep. (also note infeasible periods)
+2. graph its rank v sweep time. (also note infeasible periods)
+3. show its sweep history as a table view:
+   header : group info
+   cols: sweepno, time, score, metrics, rank, stats wrt winning score - eg fraction?.
+   note - some sweeps it may be infeasible.
+4. non-selection due to reason as table viewwrt sweeps- needs API to notify
+       e.g. schedListner.nonCandidate(grp, reason)
+
+*********************
+* gui data structures
+*********************
+
+need a structure to store obs group data.
+a- need to identify a group as such - includes s,b,c,t entries
+b- a specific OpsID for a single execution of something (scigroup, tocaop, calop, bgop)
+this equates to some extent directly to GRPUID.
+
+for each OP, store info on:
+
+opsId/grpuid
+group info
+seqinfo
+hist: started, ended, running/final status, qos stats
+
+*********
+* skyplot
+*********
+
+further info:
+
+various additional things to switch on and off:
+
+- marked target tracks - ie just the target position or add its track for the last x hours?
+- galactic coords
+- ecliptic coords
+- decolor set objects
+- sun/antisun
+
+usefull to have ability to read off  alt/az and ra/decof the mouse pointer - either via click or continuous display somewhere on screen what do we want to be able to toggle off and on?
+
+- lat/long grid (=altaz)
+- ra grid
+- dec grid (= rise and set tracks)
+- moon
+- marked targets
+- lunar exclusion zone
+- sky brightness contours (lunar and solar effects)
+
+other things we might want
+
+popup menu to obtain various info about a target
+ what group in
+ how long tracking for (from obs seq)
+ tracking rate in altaz and radec if applicable 
+
+- idea: allow the scheduler feasibility prescan window to select individual groups or targets to pop onto the
+marked target list on skyplot. ie wecan see all the upcoming targets
+
+- what info to display with these
+   - target name
+   - group name
+   - other group infos
+   - group exec/completed/ when diff color
+
+
+Want to be able to nominate specific tracksets. Ie a set of tracked targets plus other info. 
+ - Can create new tracksets and name them.
+ - These appear in the trackset dropdown list and popup menus.
+ - Add or remove tracks from a trackset
+ - various things can generate tracksets automatically (and remove them)
+     eg button on sweep panel could take all the candidate targets and add them to a new "Sweep-n" trackset
+     or a button could automatically add current sweep to "Curr-sweep" then clear it on start of next sweep.
+ - certain fixed tracklists eg all the groups which have actually executed tonight so far
+ - associate info with trackset entries, which OP generated it (an OP is a SOCA exec or BG exec or TOCA exec etc)
+   which can be queried by a button in list view of trackset
+ 
+
+
+
+
+******************
+* Startup Sequence
+******************
+
+1. Read configuration info from startup file(s).
+   -Locations of all DataProviders, rereg times, timeouts etc
+  
+2. Create DataReceiverRegistration (DRR) thread.
+   DataReceiverRegistration drr = new DataReceiverRegistration();
+
+NOTE we are calling these Sevices now !
+so SVCMgr, SVC etc..
+
+3. Create all DataReceivers and add to DRR list.
+   XReceiver xr = new XReciever();
+   drr.addReceiver(xr);
+
+  
+4. Create all GUI components and link to appropriate Receivers.
+   Component comp = new Component();
+   xr1.addUpdateComponentA(comp); // xr1 issues A type updates to comp.
+   xr2.addUpdateComponentB(comp); // xr2 issues B type updates to comp.
+ 
+   Ireg.listInstruments() - gives list of available instruments
+   this is needed to work out what components will be required.
+
+5. Display GUI.
+
+6. Start DRR. (SVCMgr threads)
+
+********************
+* user Configuration
+********************
+
+on each summary item have an "Add to favorites icon". this item goes into the favorites summary page
+
+on each graph have an "add to favs icon" this graph is copied to favs graphs tabs
+
+on favs summary, "remove from favs icon"
+
+on favs graphs, "remove from favs" removes that graph from favs graph tabs - needs to be either on graph panel itself or right click tab ??
+
+***********
+* sched gui
+***********
+ 
+sweep - keep sweep history id by sweep id - this needs to be set to zero at start of night and be persisted
+use this to allow back and forward run thro sweeps - maybe we need a uniq sweep id over all time??
+
+feasibliity - need an interface to allow fp to be controlled remotely -
+ps.runPrescan(using existing stored values not new ones) throw remoteex eg no control values stored
+
+***************
+* More on setup
+***************
+
+svm = create Service manager ()
+
+createMeteoProvider()
+createTelescopeProvider()
+...
+createSideBar(svm) {
+
+   sidebar = new SideBar()
+
+   // Linking up alternative (A) - explicit
+   axisPanel = sidebar.createAxisPanel()
+   svm.getProvider("TEL").addtelescopeUpdateListener(axisPanel)
+
+   // Linking up alternative (B) - internal
+   skyPanel = sidebar.createAndLinkSkyPanel() {
+       SkyPanel skyPanel = new SkyPanel();
+       svm.getProvider("SKY").addSkyModelUpdateListener(skyPanel);
+       return skyPanel(); 
+   }
+
+}
+
+
+createSchedulingPerspective(svm)
+createMeteoPerspective(svm)
+...
+createEngineeringPerspective(svm) {
+   ServicePanel svcPanel = new servicePanel()
+   svm.addSvcListener(svcPanel) ?
+   // or something similar....we need to link it up to EACH seperate svc.reg.thread
+}
+
