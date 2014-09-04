@@ -15,6 +15,7 @@ import ngat.icm.InstrumentStatus;
 import ngat.icm.InstrumentStatusUpdateListener;
 import ngat.opsgui.base.Perspective;
 import ngat.opsgui.services.ServiceAvailabilityListener;
+import ngat.opsgui.xcomp.SpratDisplayPanel;
 import ngat.rcsgui.test.FrodoGeneralPanel;
 import ngat.tcm.AutoguiderActiveStatus;
 import ngat.tcm.TelescopeStatus;
@@ -38,6 +39,8 @@ public class InstrumentsPerspective extends Perspective implements InstrumentSta
 	private InstrumentCombinedHealthDisplayPanel combinedHealthPanel;
 	
 	private FrodoGeneralPanel frodoPanel;
+	
+	private SpratDisplayPanel spratPanel;
 
 	public InstrumentsPerspective(JFrame frame, InstrumentRegistry ireg) throws Exception {
 		super(frame);
@@ -54,6 +57,9 @@ public class InstrumentsPerspective extends Perspective implements InstrumentSta
 		
 		frodoPanel = new FrodoGeneralPanel();
 		instrumentsPane.addTab("Frodo", frodoPanel);
+		
+		spratPanel = new SpratDisplayPanel();
+		instrumentsPane.addTab("SPRAT", spratPanel);
 		
 		// instruments common status panel
 		// TODO shows general statii for all instruments
@@ -106,6 +112,12 @@ public class InstrumentsPerspective extends Perspective implements InstrumentSta
 		
 		if (status.getInstrument().getInstrumentName().equals("FRODO"))
 			frodoPanel.update(status.getStatus());
+		
+		if (status.getInstrument().getInstrumentName().equals("SPRAT"))
+			spratPanel.update(status.getStatus());
+		
+		
+		
 		
 	}
 
