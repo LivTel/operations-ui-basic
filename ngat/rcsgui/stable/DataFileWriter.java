@@ -35,6 +35,8 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 	PrintStream ringout;
 	PrintStream frodoout;
 	PrintStream iooout;
+	PrintStream ioiout;
+	PrintStream spratout;
 	PrintStream seeout;
 
 	InternalStatus latest_rcs;
@@ -82,6 +84,10 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 				+ "/frodo.dat", true));
 		iooout = new PrintStream(new FileOutputStream(file.getPath()
 				+ "/ioo.dat", true));
+		ioiout = new PrintStream(new FileOutputStream(file.getPath()
+				+ "/ioi.dat", true));
+		spratout = new PrintStream(new FileOutputStream(file.getPath()
+				+ "/sprat.dat", true));
 
 		sdf.setTimeZone(UTC);
 
@@ -385,6 +391,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 					int hadu1 = -999;
 					int hadu2 = -999;
 					int hadu3 = -999;
+					double humidity2=-999.0,humidity3=-999.0;
 
 					System.err.println(icat + ":NetStat: " + netstat);
 					System.err.println(icat + ":OpStat:  " + opstat);
@@ -424,6 +431,12 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 						temp2 = status.getStatusEntryDouble("Temperature.1.0") - 273.15;
 						temp3 = status.getStatusEntryDouble("Temperature.1.1") - 273.15;
 
+					} else if (icat.startsWith("SPRAT")) {
+						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
+						temp2 = status.getStatusEntryDouble("Mechanism.Temperature.0");
+						temp3 = status.getStatusEntryDouble("Mechanism.Temperature.1");
+						humidity2 = status.getStatusEntryDouble("Mechanism.Humidity.0");
+						humidity3 = status.getStatusEntryDouble("Mechanism.Humidity.1");
 					} else {
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 						try {
@@ -497,6 +510,32 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ temp1
 								+ " " + hadu);
 
+					} else if (icat.equals("IO:I")) {
+						ioiout.println(sdf.format(new Date(inst.getTimeStamp()))
+								+ " "
+								+ netstat
+								+ " "
+								+ opstat
+								+ " "
+								+ temp1);
+
+					} else if (icat.startsWith("SPRAT")) {
+						spratout.println(sdf.format(new Date(inst
+								.getTimeStamp()))
+								+ " "
+								+ netstat
+								+ " "
+								+ opstat
+								+ " "
+								+ temp1
+								+ " "
+								+ temp2
+								+ " "
+								+ humidity2
+								+ " "
+								+ temp3
+								+ " "
+								+ humidity3);
 					}
 
 				/*} else if (status instanceof SkyModelStatus) {
