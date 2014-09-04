@@ -28,63 +28,59 @@ import ngat.sms.bds.TestResourceUsageEstimator;
 
 /**
  * @author eng
- *
+ * 
  */
 public class OperationsPanel extends JPanel {
 
 	static int count = 0;
-	
+
 	private JTable table;
-	
+
 	private OpsTableModel model;
-	
+
 	private Map<String, OpsTableRow> groups;
 
 	private JScrollPane scroll;
-	
-	//ngat.rcs.sciops.ExecutionTimingCalculator etc;
-	private ExecutionResourceUsageEstimationModel xrm;
-	
-    public static final Map i2i = new HashMap() {};
-    static {
-	i2i.put("RATCAM", "C");
-	i2i.put("FRODO_BLUE", "B");
-	i2i.put("FRODO_RED", "R");
-	i2i.put("RISE", "Q");
-	i2i.put("RINGO3", "D");
-	i2i.put("IO:O", "H");
-	i2i.put("IO:THOR", "W");
-    }
 
-	public static final Object[] lv = {
-		new Integer(55), 
-         "15:12:23", 
-         "JM12B123bx", 
-         "Albertina.Smetherington",   
-         "Standards",
-         "Somegroup-1234-34-IO", 
-         "Completed.",
-		"C:B:R",
-         "Autoguider failed to acquire"};
-	
+	// ngat.rcs.sciops.ExecutionTimingCalculator etc;
+	private ExecutionResourceUsageEstimationModel xrm;
+
+	/** Map instrument name to FITS file prefix. */
+	public static final Map i2i = new HashMap() {
+	};
+	static {
+		i2i.put("RATCAM", "C");
+		i2i.put("FRODO_BLUE", "B");
+		i2i.put("FRODO_RED", "R");
+		i2i.put("RISE", "Q");
+		i2i.put("RINGO3", "D");
+		i2i.put("IO:O", "H");
+		i2i.put("IO:THOR", "W");
+	}
+
+	public static final Object[] lv = { new Integer(55), "15:12:23",
+			"JM12B123bx", "Albertina.Smetherington", "Standards",
+			"Somegroup-1234-34-IO", "Completed.", "C:B:R",
+			"Autoguider failed to acquire" };
+
 	public OperationsPanel() {
 		super(true);
-		//setPreferredSize(new Dimension(width, height))
+		// setPreferredSize(new Dimension(width, height))
 		setLayout(new BorderLayout());
-		//etc = new ngat.rcs.sciops.ExecutionTimingCalculator();
-		
+		// etc = new ngat.rcs.sciops.ExecutionTimingCalculator();
+
 		xrm = new TestResourceUsageEstimator();
 		groups = new HashMap<String, OpsTableRow>();
-		
-		//lm = new DefaultListModel();
-	
+
+		// lm = new DefaultListModel();
+
 		model = new OpsTableModel();
-		
-		//list = new JList(lm);
-		//list.setCellRenderer(new MyCellRenderer());
-		
+
+		// list = new JList(lm);
+		// list.setCellRenderer(new MyCellRenderer());
+
 		TableCellRenderer mr = new OpsTableRenderer();
-		
+
 		table = new JTable(model);
 		table.getColumnModel().getColumn(0).setCellRenderer(mr);
 		table.getColumnModel().getColumn(1).setCellRenderer(mr);
@@ -97,67 +93,69 @@ public class OperationsPanel extends JPanel {
 		table.getColumnModel().getColumn(8).setCellRenderer(mr);
 
 		// initialize column sizes
-		
-		 for (int icol = 0; icol < 9; icol++) {
-	            TableColumn col = table.getColumnModel().getColumn(icol);
-	          
-	            Component comp = col.getCellRenderer()
-	            		.getTableCellRendererComponent(table, lv[icol], false, false, 0, icol);
-	            
-	            int cellWidth = comp.getPreferredSize().width;
-	            col.setPreferredWidth(cellWidth);	        
-	     }
 
-		scroll = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+		for (int icol = 0; icol < 9; icol++) {
+			TableColumn col = table.getColumnModel().getColumn(icol);
+
+			Component comp = col.getCellRenderer()
+					.getTableCellRendererComponent(table, lv[icol], false,
+							false, 0, icol);
+
+			int cellWidth = comp.getPreferredSize().width;
+			col.setPreferredWidth(cellWidth);
+		}
+
+		scroll = new JScrollPane(table,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setPreferredSize(new Dimension(500,200));
-		
+		scroll.setPreferredSize(new Dimension(500, 200));
+
 		add(scroll, BorderLayout.CENTER);
 	}
-	
+
 	public void update(GroupItem group) {
 		if (group == null)
 			return;
 		++count;
 		System.err.println("OPS:Update group: " + group);
-		
+
 		ISequenceComponent root = group.getSequence();
 		long exec = 0L;
 		long shutter = 0L;
 		try {
-			//exec = etc.calcExecTimeOfSequence((XIteratorComponent) root);
+			// exec = etc.calcExecTimeOfSequence((XIteratorComponent) root);
 			ExecutionResourceBundle xrb = xrm.getEstimatedResourceUsage(group);
 			ExecutionResource xt = xrb.getResource("TIME");
-			exec = (long)xt.getResourceUsage(); // this is millis
-			ExecutionResource xs =  xrb.getResource("EXPOSURE");
-			shutter = (long)xs.getResourceUsage();
+			exec = (long) xt.getResourceUsage(); // this is millis
+			ExecutionResource xs = xrb.getResource("EXPOSURE");
+			shutter = (long) xs.getResourceUsage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		String ilist = new String("");
 		try {
-		int iic = 0;
-		ComponentSet cs = new ComponentSet(root);		
-		Iterator<IInstrumentConfig> ii = cs.listInstrumentConfigs();
-		while (ii.hasNext()) {
-		    IInstrumentConfig ic = ii.next();
-		    String iname = ic.getInstrumentName().toUpperCase();
-		    String iab = (String)i2i.get(iname);
-		    if (ilist.indexOf(iab) == -1) {
-			// not found add to list
-			if (iic == 0)
-			    ilist = ilist.concat(iab);
-			else
-			    ilist = ilist.concat(":"+iab);
-			iic++;
-		    }
-		}
+			int iic = 0;
+			ComponentSet cs = new ComponentSet(root);
+			Iterator<IInstrumentConfig> ii = cs.listInstrumentConfigs();
+			while (ii.hasNext()) {
+				IInstrumentConfig ic = ii.next();
+				String iname = ic.getInstrumentName().toUpperCase();
+				String iab = (String) i2i.get(iname);
+				if (ilist.indexOf(iab) == -1) {
+					// not found add to list
+					if (iic == 0)
+						ilist = ilist.concat(iab);
+					else
+						ilist = ilist.concat(":" + iab);
+					iic++;
+				}
+			}
 		} catch (Exception e) {
-		    e.printStackTrace();
-		    ilist = "N/A";
+			e.printStackTrace();
+			ilist = "N/A";
 		}
-		
+
 		OpsTableRow row = new OpsTableRow();
 		row.group = group;
 		row.hasCompleted = false;
@@ -165,13 +163,13 @@ public class OperationsPanel extends JPanel {
 		row.startTime = System.currentTimeMillis();
 		row.exec = exec;
 		row.shutter = shutter;
-		//lm.addElement(g);
+		// lm.addElement(g);
 		row.details = ilist;
 
 		model.addEntry(row);
 		groups.put(group.getName(), row);
 	}
-	
+
 	public void completed(GroupItem group) {
 		// find the relevant element.} else if
 		String gname = group.getName();
@@ -182,7 +180,7 @@ public class OperationsPanel extends JPanel {
 		row.completionTime = System.currentTimeMillis();
 		model.fireTableDataChanged();
 	}
-	
+
 	public void failed(GroupItem group, IExecutionFailureContext error) {
 		String gname = group.getName();
 		OpsTableRow row = groups.get(gname);
@@ -193,19 +191,15 @@ public class OperationsPanel extends JPanel {
 		row.error = error;
 		model.fireTableDataChanged();
 	}
-	
-	
-	
+
 	class GroupInfo {
-	
+
 		public GroupItem group;
-		
+
 		public boolean completed;
-		
+
 		public IExecutionFailureContext error;
-		
+
 	}
-	
-	
 
 }

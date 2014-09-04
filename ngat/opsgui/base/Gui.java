@@ -1124,8 +1124,8 @@ public class Gui implements XmlConfigurable {
 		Layout l = createLayout(layoutMode);
 
 		try {
-			JOptionPane
-					.showMessageDialog(null, "About to display layout: " + l);
+			/*JOptionPane
+					.showMessageDialog(null, "About to display layout: " + l);*/
 
 			// Display the layout
 			gui.display(l);
