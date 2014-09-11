@@ -52,6 +52,7 @@ public class OperationsPanel extends JPanel {
 		i2i.put("RATCAM", "C");
 		i2i.put("FRODO_BLUE", "B");
 		i2i.put("FRODO_RED", "R");
+		i2i.put("SPRAT", "V");
 		i2i.put("RISE", "Q");
 		i2i.put("RINGO3", "D");
 		i2i.put("IO:O", "H");
