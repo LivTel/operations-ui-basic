@@ -177,7 +177,6 @@ public class ServiceManager implements ServiceAvailabilityListener, ServiceDataL
 			svc.setPollingInterval(sd.getPollingInterval());
 			runnableServices.put(svcName, svc);
 			
-			JOptionPane.showMessageDialog(null, "Attaching OPS service provider at: "+svc.getOspUrl());
 			return svc;
 			
 		} else if (svcName.equalsIgnoreCase("ERS")) {

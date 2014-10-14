@@ -31,22 +31,20 @@ public class TestPanel2 extends SummaryPane {
 	 */
 	@Override
 	public void createPanel() {
-		LinePanel l = new LinePanel();
-		l.add(ComponentFactory.makeLabel("test1"));
-		StateField azmField = ComponentFactory.makeStateField(8, colorMap);
-		l.add(azmField);
-		DataField azmPosField = ComponentFactory.makeDataField(5, "%4.2f");
-		l.add(azmPosField);
-		add(l);
-		
-		l = new LinePanel();
-		l.add(ComponentFactory.makeLabel("test2"));
-		StateField azm2Field = ComponentFactory.makeStateField(8, colorMap);
-		l.add(azm2Field);
-		DataField azmPos2Field = ComponentFactory.makeDataField(5, "%4.2f");
-		l.add(azmPos2Field);
-		add(l);
-
+		addLine("Spare 1");
+		addLine("Spare 2");
+		addLine("Spare 3");
+		addLine("Spare 4");
+		addLine("Spare 5");
+		addLine("Spare 6");
 	}
-
+	private void addLine(String name) {
+		LinePanel l = new LinePanel();
+		l.add(ComponentFactory.makeLabel(name));
+		StateField azm3Field = ComponentFactory.makeStateField(8, colorMap);
+		l.add(azm3Field);
+		DataField azmPos3Field = ComponentFactory.makeDataField(5, "%4.2f");
+		l.add(azmPos3Field);
+		add(l);
+	}
 }

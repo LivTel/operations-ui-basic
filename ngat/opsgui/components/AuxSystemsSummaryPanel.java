@@ -15,6 +15,15 @@ import ngat.opsgui.util.StateField;
  */
 public class AuxSystemsSummaryPanel extends SummaryPane {
 
+	public static final int OFFLINE = 1;
+	
+	public static final int ONLINE = 2;
+	
+	public static final int ERROR = 3;
+	
+	
+	
+	
 	private StateField ocrField;
 	private StateField gcnField;
 	private StateField teaField;
@@ -31,9 +40,9 @@ public class AuxSystemsSummaryPanel extends SummaryPane {
 		super(title);
 		colors = new StateColorMap(Color.gray, "UNKNOWN");
 
-		colors.addColorLabel(1, Color.blue, "OFFLINE");
-		colors.addColorLabel(2, Color.green, "ONLINE");
-		colors.addColorLabel(3, Color.red, "ERROR");
+		colors.addColorLabel(OFFLINE, Color.blue, "OFFLINE");
+		colors.addColorLabel(ONLINE, Color.green, "ONLINE");
+		colors.addColorLabel(ERROR, Color.red, "ERROR");
 	}
 
 	/*

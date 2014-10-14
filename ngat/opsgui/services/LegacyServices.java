@@ -194,12 +194,11 @@ public void startServices() {
 				
 				// SMP
 				try {System.err.println("LOOKUP: "+smpUrl);
-					RemotelyPingable smp = (RemotelyPingable)Naming.lookup(smpUrl);
-					System.err.println("PING PING PING PING PING PING PING PING PING PING PING PING SMP: "+smp);
+					RemotelyPingable smp = (RemotelyPingable)Naming.lookup(smpUrl);				
 					smp.ping();
-					auxPanel.updateSmpStatus(2); // online
+					auxPanel.updateSmpStatus(AuxSystemsSummaryPanel.ONLINE); // online
 				} catch (Exception e) {
-					auxPanel.updateSmpStatus(1); // offline
+					auxPanel.updateSmpStatus(AuxSystemsSummaryPanel.OFFLINE); // offline
 				}
 				
 				// SCHED
@@ -207,27 +206,27 @@ public void startServices() {
 					RemotelyPingable sched = (RemotelyPingable)Naming.lookup(schedUrl);
 					System.err.println("PING PING PING PING PING PING PING PING PING PING PING PING  SCHED: "+sched);
 					sched.ping();
-					auxPanel.updateSchedStatus(2);
+					auxPanel.updateSchedStatus(AuxSystemsSummaryPanel.ONLINE);
 				} catch (Exception e) {
-					auxPanel.updateSchedStatus(1); // offline
+					auxPanel.updateSchedStatus(AuxSystemsSummaryPanel.OFFLINE); // offline
 				}
 				
 				// TEA
 				try {
 					RemotelyPingable tea = (RemotelyPingable)Naming.lookup(teaUrl);
 					tea.ping();
-					auxPanel.updateTeaStatus(2);// online
+					auxPanel.updateTeaStatus(AuxSystemsSummaryPanel.ONLINE);// online
 				} catch (Exception e) {
-					auxPanel.updateTeaStatus(1); // offline
+					auxPanel.updateTeaStatus(AuxSystemsSummaryPanel.OFFLINE); // offline
 				}
 				
 				// BASE
 				try {
 					RemotelyPingable phase2 = (RemotelyPingable)Naming.lookup(phase2Url);
 					phase2.ping();
-					auxPanel.updateBaseModelStatus(2); // online
+					auxPanel.updateBaseModelStatus(AuxSystemsSummaryPanel.ONLINE); // online
 				} catch (Exception e) {
-					auxPanel.updateBaseModelStatus(1); // offline
+					auxPanel.updateBaseModelStatus(AuxSystemsSummaryPanel.OFFLINE); // offline
 				}
 				
 				// OCR
