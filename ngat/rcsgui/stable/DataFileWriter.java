@@ -313,7 +313,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ msc.getStatusEntryDouble("wet.flag")
 								+ " "
 								+ msc.getStatusEntryDouble("dt"));
-					} else if (mcat.equals("X_SYSTEM")) {
+					} else if (mcat.equals("DISKS")) {
 						System.err.println("Processing DISK data");
 						diskout.println(sdf.format(new Date(msc.getTimeStamp()))
 								+ " "
