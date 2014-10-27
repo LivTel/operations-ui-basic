@@ -426,6 +426,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 							System.err.println(icat
 									+ ":ADU blue value not available");
 						}
+					} else if (icat.startsWith("IO:I")) {
+						temp1 = status.getStatusEntryDouble("Temperature.0") - 273.15;
+						temp2 = status.getStatusEntryDouble("Temperature.1") - 273.15;
 					} else if (icat.startsWith("RINGO")) {
 						temp1 = status.getStatusEntryDouble("Temperature.0.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1.0") - 273.15;
@@ -517,7 +520,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ opstat
 								+ " "
-								+ temp1);
+								+ temp1
+								+ " "
+								+ temp2);
 
 					} else if (icat.startsWith("SPRAT")) {
 						spratout.println(sdf.format(new Date(inst
