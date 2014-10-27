@@ -3,7 +3,7 @@
 <project name="Operations UI" default="jar" basedir=".">
 
   <description>
-    "Scheduler GUI"
+    "Operations UI"
   </description>
 
   <property environment="env" />
