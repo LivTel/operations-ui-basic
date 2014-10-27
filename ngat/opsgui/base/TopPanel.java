@@ -55,7 +55,7 @@ public class TopPanel extends JPanel implements GroupOperationsListener, Telesco
 		
 		// add(new TrackingSummaryPanel(site));
 		
-		TestPanel1 tp1 = new TestPanel1("Test1");
+		TestPanel1 tp1 = new TestPanel1("Disk Monitoring");
 		tp1.createPanel();
 		add(tp1);
 		

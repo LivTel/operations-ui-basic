@@ -33,21 +33,23 @@ public class TestPanel1 extends SummaryPane {
 	@Override
 	public void createPanel() {
 		// TODO Auto-generated method stub
-		addLine("Spare 1");
-		addLine("Spare 2");
-		addLine("Spare 3");
-		addLine("Spare 4");
-		addLine("Spare 5");
-		addLine("Spare 6");
+		addLine("OCC");
+		addLine("NAS-2");
+		addLine("Rise");
+		addLine("Ringo3-1");
+		addLine("Ringo3-2");
+		addLine("Autoguider");
 	}
 	
 	private void addLine(String name) {
 		LinePanel l = new LinePanel();
 		l.add(ComponentFactory.makeLabel(name));
-		StateField azm3Field = ComponentFactory.makeStateField(8, colorMap);
-		l.add(azm3Field);
-		DataField azmPos3Field = ComponentFactory.makeDataField(5, "%4.2f");
-		l.add(azmPos3Field);
+		// usage percent
+		DataField dfield1 = ComponentFactory.makeDataField(5, "%4.2f"); 		
+		l.add(dfield1);
+		// freespace Mb or Gb ??
+		DataField dfield2 = ComponentFactory.makeDataField(5, "%6.2f");
+		l.add(dfield2);
 		add(l);
 	}
 	
