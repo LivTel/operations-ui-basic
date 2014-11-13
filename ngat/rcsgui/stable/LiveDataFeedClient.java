@@ -162,6 +162,10 @@ public class LiveDataFeedClient {
 				
 				
 				StatusCategory status = ((GET_STATUS_DONE) update).getStatus();
+				if(status == null)
+				{
+					System.err.println("Received a null Status.");
+				}
 				StatusInfo sinfo = new StatusInfo(System.currentTimeMillis(), cat, status);
 				System.err.println("Received: Status: "+status.getClass().getName());
 				System.err.println("Received: Status: "+status);

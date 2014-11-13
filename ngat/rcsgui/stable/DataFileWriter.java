@@ -298,11 +298,11 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 					System.err.println("MSC: Cat=" + mcat + " : " + msc);
 
-					if (mcat.equals("X_CLOUD")) {
+					if (mcat.equals("CLOUD")) {
 						System.err.println("Processing CLOUD data");
 						cloudout.println(sdf.format(new Date(msc.getTimeStamp()))
 								+ " "
-								+ msc.getStatusEntryDouble("t.amb")
+								+ msc.getStatusEntryDouble("t.ambient")
 								+ " "
 								+ msc.getStatusEntryDouble("t.diff")
 								+ " "
