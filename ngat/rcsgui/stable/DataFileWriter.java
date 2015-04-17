@@ -391,6 +391,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 					int hadu1 = -999;
 					int hadu2 = -999;
 					int hadu3 = -999;
+					double heater_pcent = 0.0;
 					double humidity2=-999.0,humidity3=-999.0;
 
 					System.err.println(icat + ":NetStat: " + netstat);
@@ -429,6 +430,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 					} else if (icat.startsWith("IO:I")) {
 						temp1 = status.getStatusEntryDouble("Temperature.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1") - 273.15;
+						heater_pcent = status.getStatusEntryDouble("Heater PCent");
 					} else if (icat.startsWith("RINGO")) {
 						temp1 = status.getStatusEntryDouble("Temperature.0.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1.0") - 273.15;
@@ -522,7 +524,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ temp1
 								+ " "
-								+ temp2);
+								+ temp2
+								+ " "
+								+ heater_pcent);
 
 					} else if (icat.startsWith("SPRAT")) {
 						spratout.println(sdf.format(new Date(inst
