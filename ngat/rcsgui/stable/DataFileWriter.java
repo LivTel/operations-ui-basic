@@ -37,6 +37,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 	PrintStream iooout;
 	PrintStream ioiout;
 	PrintStream spratout;
+	PrintStream lotusout;
 	PrintStream seeout;
 
 	InternalStatus latest_rcs;
@@ -88,6 +89,8 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 				+ "/ioi.dat", true));
 		spratout = new PrintStream(new FileOutputStream(file.getPath()
 				+ "/sprat.dat", true));
+		lotusout = new PrintStream(new FileOutputStream(file.getPath()
+				+ "/lotus.dat", true));
 
 		sdf.setTimeZone(UTC);
 
@@ -442,6 +445,8 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 						temp3 = status.getStatusEntryDouble("Mechanism.Temperature.1");
 						humidity2 = status.getStatusEntryDouble("Mechanism.Humidity.0");
 						humidity3 = status.getStatusEntryDouble("Mechanism.Humidity.1");
+					} else if (icat.startsWith("LOTUS")) {
+						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 					} else {
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 						try {
@@ -546,6 +551,16 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ humidity3);
 					}
+					else if (icat.startsWith("LOTUS")) {
+						lotusout.println(sdf.format(new Date(inst
+								.getTimeStamp()))
+								+ " "
+								+ netstat
+								+ " "
+								+ opstat
+								+ " "
+								+ temp1);
+				}
 
 				/*} else if (status instanceof SkyModelStatus) {
 
