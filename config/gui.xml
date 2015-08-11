@@ -47,11 +47,11 @@
       <last>Clay</last>
       <icon />
     </user>
-    <!--User: Dr Chris Davis-->
-    <user name="cjd">
+    <!--User: Dr Chris Copperwheat -->
+    <user name="cmc">
       <title>Dr</title>
       <first>Chris</first>
-      <last>Davis</last>
+      <last>Copperwheat</last>
       <icon />
     </user>
     <!--User: Dr Rob Barnsley -->
@@ -75,6 +75,14 @@
       <last>Marchant</last>
       <icon />
     </user>
+    <!--User: Dr Robert Smith -->
+    <user name = "rjs">
+	  <title>Dr</title>
+	  <first>Rob</first>
+	  <last>Smith</last>
+	  <icon/>
+	</user>
+    
     <!--Service: -->
     <service name="SCHED">
       <description />
