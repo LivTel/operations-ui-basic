@@ -1,0 +1,209 @@
+<gui>
+
+  <site>
+    <base.host> oss.lt.com  </base.host> 
+    <smp.host> localhost </smp.host>
+    <sched.host> localhost </sched.host>
+    <rcs.host> localhost </rcs.host>
+    <external.host> ltproxy </external.host>
+  </site>
+
+  <!--<perspective name = "OPS">
+		   <description> Operations </description>
+		   <icon> ops.png </icon>
+  </perspective>
+  <perspective name = "SCHED">
+    <description>  Scheduler </description>
+    <icon> sched.png </icon>
+  </perspective>
+
+
+  <service name = "SCHED"/>
+  <service name = "INST"/>
+  <service name = "TCM"/>
+  <service name = "SKY"/>
+  -->
+
+ <!-- Configuration for users etc -->
+  <config>
+
+    <!--User: Dr Stephen Fraser-->
+    <!--
+    <user name="snf">
+      <title>Dr</title>
+      <first>Stephen</first>
+      <last>Fraser</last>
+      <icon/>
+      <layout name="Ops1">
+	<display name="D1" />
+      </layout>
+      <layout name="Ops2">
+	<display name="Da" />
+	<display name="Db" />
+      </layout>
+    </user>
+    -->
+    <!--User: Dr Rob Barnsley -->
+    <user name="rab">
+      <title>Dr</title>
+      <first>Rob</first>
+      <last>Barnsley</last>
+      <icon />
+    </user>
+    <!--User: Mr Neil Clay-->
+    <user name="nrc">
+      <title>Mr</title>
+      <first>Neil</first>
+      <last>Clay</last>
+      <icon />
+    </user>
+    <!--User: Dr Chris Copperwheat -->
+    <user name="cmc">
+      <title>Dr</title>
+      <first>Chris</first>
+      <last>Copperwheat</last>
+      <icon />
+    </user>
+    <!--User: Dr Helen Jermak -->
+    <user name="hej">
+      <title>Dr</title>
+      <first>Helen</first>
+      <last>Jermak</last>
+      <icon />
+    </user>
+    <!--User: Dr Marco Lam -->
+    <user name = "ml">
+      <title>Dr</title>
+      <first>Marco</first>
+      <last>Lam</last>
+      <icon/>
+    </user>
+    <!--User: Dr John Marchant-->
+    <user name="jmm">
+      <title>Dr</title>
+      <first>Jon</first>
+      <last>Marchant</last>
+      <icon />
+    </user>
+    <!--User: Mr Chris Mottram-->
+    <user name="cjm">
+      <title>Mr</title>
+      <first>Chris</first>
+      <last>Mottram</last>
+      <icon />
+    </user>
+    <!--User: Dr Andrzej Piascik -->
+    <user name = "asp">
+      <title>Dr</title>
+      <first>Andrzej</first>
+      <last>Piascik</last>
+      <icon/>
+    </user>
+    <!--User: Dr Rob Smith -->
+    <user name = "rjs">
+      <title>Dr</title>
+      <first>Robert</first>
+      <last>Smith</last>
+      <icon/>
+    </user>
+
+    <!--Service: -->
+    <service name="SCHED">
+      <description />
+      <gateway>
+	<name>ScheduleArchiveGateway</name>
+	<host>localhost</host>
+      </gateway>
+      <provider>
+	<name>Scheduler</name>
+	<host>localhost</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>20000</polling>
+      <bcast>20000</bcast>
+    </service>
+    <!--Service: -->
+    <service name="INSTR">
+      <description />
+      <gateway>
+	<name>InstrumentArchiveGaetway</name>
+	<host>localhost</host>
+      </gateway>
+      <provider>
+	<name>InstrumentRegistry</name>
+	<host>localhost</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>20000</polling>
+      <bcast>20000</bcast>
+    </service>
+    <!--Service: -->
+    <service name="SKY">
+      <description />
+      <gateway>
+	<name>SkyArchiveGateway</name>
+	<host>localhost</host>
+      </gateway>
+      <provider>
+	<name>SkyModel</name>
+	<host>localhost</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>20000</polling>
+      <bcast>20000</bcast>
+    </service>
+    <!--Service: -->
+    <service name="TEL">
+      <description />
+      <gateway>
+	<name>TelescopeArchiveGateway</name>
+	<host>localhost</host>
+      </gateway>
+      <provider>
+	<name>Telescope</name>
+	<host>localhost</host>
+      </provider>
+      <lookback>3600000</lookback>
+      <polling>10000</polling>
+      <bcast>10000</bcast>
+    </service>
+
+    <!--Service: -->
+    <service name="OPS">
+      <description />
+      <gateway>
+	<name>OperationsArchiveGateway</name>
+	<host>localhost</host>
+      </gateway>
+      <provider>
+	<name>OperationsManager</name>
+	<host>localhost</host>
+      </provider>
+      <lookback>3600000</lookback>
+      <polling>10000</polling>
+      <bcast>10000</bcast>
+    </service>
+
+    <!--Service: -->
+    <service name="ERS">
+      <description />
+      <gateway>
+	<name>ReactiveSystemGateway</name>
+	<host>localhost</host>
+      </gateway>
+      <provider>
+	<name>ReactiveSystem</name>
+	<host>localhost</host>
+      </provider>
+      <lookback>1800000</lookback>
+      <polling>10000</polling>
+      <bcast>20000</bcast>
+    </service>
+  </config>
+
+
+
+
+</gui>
+
+ 
