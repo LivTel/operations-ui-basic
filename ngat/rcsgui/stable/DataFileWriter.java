@@ -38,6 +38,7 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 	PrintStream ioiout;
 	PrintStream spratout;
 	PrintStream lotusout;
+	PrintStream moptopout;
 	PrintStream seeout;
 
 	InternalStatus latest_rcs;
@@ -91,6 +92,8 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 				+ "/sprat.dat", true));
 		lotusout = new PrintStream(new FileOutputStream(file.getPath()
 				+ "/lotus.dat", true));
+		moptopout = new PrintStream(new FileOutputStream(file.getPath()
+				+ "/moptop.dat", true));
 
 		sdf.setTimeZone(UTC);
 
@@ -347,7 +350,17 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 								+ msc.getStatusEntryDouble("disk.usage.autoguider")
 								+ " "
-								+ (msc.getStatusEntryDouble("free.space.autoguider") / 1000000));
+								+ (msc.getStatusEntryDouble("free.space.autoguider") / 1000000)
+								+ " "
+								
+								+ msc.getStatusEntryDouble("disk.usage.moptop1")
+								+ " "
+								+ (msc.getStatusEntryDouble("free.space.moptop1") / 1000000)
+								+ " "
+								
+								+ msc.getStatusEntryDouble("disk.usage.moptop2")
+								+ " "
+								+ (msc.getStatusEntryDouble("free.space.moptop2") / 1000000));
 
 						System.err
 								.println("Dumping DISK status to: disks_lt.dat: occ: "
@@ -438,7 +451,6 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 						temp1 = status.getStatusEntryDouble("Temperature.0.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1.0") - 273.15;
 						temp3 = status.getStatusEntryDouble("Temperature.1.1") - 273.15;
-
 					} else if (icat.startsWith("SPRAT")) {
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 						temp2 = status.getStatusEntryDouble("Mechanism.Temperature.0");
@@ -447,6 +459,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 						humidity3 = status.getStatusEntryDouble("Mechanism.Humidity.1");
 					} else if (icat.startsWith("LOTUS")) {
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
+					} else if (icat.startsWith("MOPTOP")) {
+						temp1 = status.getStatusEntryDouble("Temperature.0") - 273.15;
+						temp2 = status.getStatusEntryDouble("Temperature.1") - 273.15;
 					} else {
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 						try {
@@ -560,7 +575,17 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ opstat
 								+ " "
 								+ temp1);
-				}
+					} else if (icat.startsWith("MOPTOP")) {
+						moptopout.println(sdf.format(new Date(inst.getTimeStamp()))
+								+ " "
+								+ netstat
+								+ " "
+								+ opstat
+								+ " "
+								+ temp1
+								+ " " 
+								+ temp2);
+					}
 
 				/*} else if (status instanceof SkyModelStatus) {
 
