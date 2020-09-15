@@ -27,6 +27,8 @@
   
   <!-- Prepare build directories -->
   <target name="prepare-opsgui" description="Prepare build directories">
+	<delete dir="${build.dir}" />
+	<mkdir dir="${build.dir}" />
     <mkdir dir="${class.dir}" />
     <tstamp>
       <format property="BUILD" pattern="yyyyMMdd_HHmm" locale="en" />
