@@ -10,7 +10,8 @@ import java.util.*;
 import java.text.*;
 import java.io.*;
 
-public class DataFileWriter implements DataLoggerUpdateListener {
+public class DataFileWriter implements DataLoggerUpdateListener 
+{
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ssz");
 
@@ -45,7 +46,8 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 	StateModelVariableStatus latest_sm;
 
 	/** Create a DataFileWriter. */
-	public DataFileWriter(File file) throws IOException {
+	public DataFileWriter(File file) throws IOException 
+	{
 
 		meteoout = new PrintStream(new FileOutputStream(file.getPath()
 				+ "/meteo_lt.dat", true));
@@ -102,26 +104,30 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 	}
 
 	@Override
-	public void dataUpdate(Object data) {
+	public void dataUpdate(Object data) 
+	{
 
-		try {
+		try 
+		{
 
-			if (data instanceof StatusInfo) {
+			if (data instanceof StatusInfo) 
+			{
 
 				StatusInfo info = (StatusInfo) data;
 
 				StatusCategory status = info.getStatus();
 
-				System.err.println("Status class: "
-						+ status.getClass().getName());
+				log("dataUpdate:Status class: "+ status.getClass().getName());
 
-				if (status instanceof TCS_Status.Segment) {
+				if (status instanceof TCS_Status.Segment) 
+				{
 
 					TCS_Status.Segment seg = (TCS_Status.Segment) status;
 
-					System.err.println("Segment:[" + seg + "]");
+					log("dataUpdate:Segment:[" + seg + "]");
 
-					if (seg instanceof TCS_Status.Meteorology) {
+					if (seg instanceof TCS_Status.Meteorology) 
+					{
 
 						TCS_Status.Meteorology meteo = (TCS_Status.Meteorology) seg;
 
@@ -136,7 +142,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ meteo.dewPointTemperature + " "
 								+ meteo.humidity + " " + meteo.pressure + " "
 								+ meteo.lightLevel);
-					} else if (seg instanceof TCS_Status.Autoguider) {
+					} 
+					else if (seg instanceof TCS_Status.Autoguider) 
+					{
 
 						TCS_Status.Autoguider auto = (TCS_Status.Autoguider) seg;
 
@@ -144,7 +152,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " " + TCS_Status.codeString(auto.agSwState)
 								+ " " + TCS_Status.codeString(auto.agStatus));
 
-					} else if (seg instanceof TCS_Status.State) {
+					} 
+					else if (seg instanceof TCS_Status.State) 
+					{
 
 						TCS_Status.State state = (TCS_Status.State) seg;
 
@@ -162,7 +172,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " " + state.systemRestartFlag + " "
 								+ state.systemShutdownFlag);
 
-					} else if (seg instanceof TCS_Status.Mechanisms) {
+					} 
+					else if (seg instanceof TCS_Status.Mechanisms) 
+					{
 
 						TCS_Status.Mechanisms mech = (TCS_Status.Mechanisms) seg;
 
@@ -215,13 +227,15 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 					} // other segment type.
 
-				} else if (status instanceof ngat.rcs.scm.collation.SeeingHistoryStatus) {
+				} 
+				else if (status instanceof ngat.rcs.scm.collation.SeeingHistoryStatus) 
+				{
 
 					ngat.rcs.scm.collation.SeeingHistoryStatus seehist = (ngat.rcs.scm.collation.SeeingHistoryStatus) status;
 
 					Vector<SeeingStatus> samples = seehist.getHistory();
 
-					System.err.println("SeeingHistory contains: "
+					log("dataUpdate:SeeingHistory contains: "
 							+ (samples != null ? "" + samples.size() : "NULL"));
 
 					// write each sample out as:
@@ -245,7 +259,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 					} // next historic sample
 
-				} else if (status instanceof ngat.rcs.scm.collation.InternalStatus) {
+				} 
+				else if (status instanceof ngat.rcs.scm.collation.InternalStatus) 
+				{
 
 					InternalStatus intrcs = (InternalStatus) status;
 
@@ -302,10 +318,11 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 					MappedStatusCategory msc = (MappedStatusCategory) status;
 					String mcat = info.getCat();
 
-					System.err.println("MSC: Cat=" + mcat + " : " + msc);
+					log("dataUpdate:MSC: Cat=" + mcat + " : " + msc);
 
-					if (mcat.equals("CLOUD")) {
-						System.err.println("Processing CLOUD data");
+					if (mcat.equals("CLOUD")) 
+					{
+						log("dataUpdate:Processing CLOUD data");
 						cloudout.println(sdf.format(new Date(msc.getTimeStamp()))
 								+ " "
 								+ msc.getStatusEntryDouble("t.ambient")
@@ -319,8 +336,10 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ msc.getStatusEntryDouble("wet.flag")
 								+ " "
 								+ msc.getStatusEntryDouble("dt"));
-					} else if (mcat.equals("DISKS")) {
-						System.err.println("Processing DISK data");
+					} 
+					else if (mcat.equals("DISKS")) 
+					{
+						log("dataUpdate:Processing DISK data:"+msc);
 						diskout.println(sdf.format(new Date(msc.getTimeStamp()))
 								+ " "
 								+ msc.getStatusEntryDouble("disk.usage.occ")
@@ -337,21 +356,6 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ (msc.getStatusEntryDouble("free.space.rise") / 1000000)
 								+ " "
-
-								+ msc.getStatusEntryDouble("disk.usage.ringo3-1")
-								+ " "
-								+ (msc.getStatusEntryDouble("free.space.ringo3-1") / 1000000)
-								+ " "
-
-								+ msc.getStatusEntryDouble("disk.usage.ringo3-2")
-								+ " "
-								+ (msc.getStatusEntryDouble("free.space.ringo3-2") / 1000000)
-								+ " "
-
-								+ msc.getStatusEntryDouble("disk.usage.autoguider")
-								+ " "
-								+ (msc.getStatusEntryDouble("free.space.autoguider") / 1000000)
-								+ " "
 								
 								+ msc.getStatusEntryDouble("disk.usage.moptop1")
 								+ " "
@@ -360,23 +364,40 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								
 								+ msc.getStatusEntryDouble("disk.usage.moptop2")
 								+ " "
-								+ (msc.getStatusEntryDouble("free.space.moptop2") / 1000000));
+								+ (msc.getStatusEntryDouble("free.space.moptop2") / 1000000)
+								+ " "
 
-						System.err
-								.println("Dumping DISK status to: disks_lt.dat: occ: "
+								//+ msc.getStatusEntryDouble("disk.usage.ringo3-1")
+								//+ " "
+								//+ (msc.getStatusEntryDouble("free.space.ringo3-1") / 1000000)
+								//+ " "
+
+								//+ msc.getStatusEntryDouble("disk.usage.ringo3-2")
+								//+ " "
+								//+ (msc.getStatusEntryDouble("free.space.ringo3-2") / 1000000)
+								//+ " "
+
+								+ msc.getStatusEntryDouble("disk.usage.autoguider")
+								+ " "
+								+ (msc.getStatusEntryDouble("free.space.autoguider") / 1000000));
+
+						log("dataUpdate:Dumping DISK status to: disks_lt.dat: occ: "
 										+ msc.getStatusEntryDouble("disk.usage.occ"));
 
-					} else if (mcat.equals("AGACTIVE")) {
-						System.err.println("Processing AGTEMP data");
+					} 
+					else if (mcat.equals("AGACTIVE")) 
+					{
+						log("dataUpdate:Processing AGTEMP data");
 
 						agtempout.println(sdf.format(new Date(msc
 								.getTimeStamp()))
 								+ " "
 								+ msc.getStatusEntryDouble("t.ag"));
-						System.err
-								.println("Dumping AGTEMP data to: agtemp_lt.dat");
-					} else if (mcat.equals("X_OCR")) {
-						System.err.println("Processing OCR data");
+						log("dataUpdate:Dumping AGTEMP data to: agtemp_lt.dat");
+					} 
+					else if (mcat.equals("X_OCR")) 
+					{
+						log("dataUpdate:Processing OCR data");
 						int state = (int) (msc.getStatusEntryDouble("state"));
 						String strState = "UNKNOWN";
 						if (state == 2)
@@ -388,11 +409,14 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 					}
 
-				} else if (status instanceof ngat.rcs.scm.collation.InstrumentStatus) {
+				} 
+				else if (status instanceof ngat.rcs.scm.collation.InstrumentStatus) 
+				{
 
 					InstrumentStatus inst = (InstrumentStatus) status;
 					String icat = info.getCat();
 
+					log("dataUpdate:InstrumentStatus received.");
 					// now pull the relevant stuff out
 					String netstat = status.getStatusEntryId("network.status");
 					String opstat = status
@@ -410,14 +434,16 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 					double heater_pcent = 0.0;
 					double humidity2=-999.0,humidity3=-999.0;
 
-					System.err.println(icat + ":NetStat: " + netstat);
-					System.err.println(icat + ":OpStat:  " + opstat);
+					log("dataUpdate:InstrumentStatus "+ icat + ":NetStat: " + netstat);
+					log("dataUpdate:InstrumentStatus "+ icat + ":OpStat:  " + opstat);
 
 					// System.err.println(icat+":Temp:    "+temp);
-					if (icat.startsWith("FRODO")) {
+					if (icat.startsWith("FRODO")) 
+					{
 						temp1 = status.getStatusEntryDouble("red.Temperature") - 273.15;
 						temp2 = status.getStatusEntryDouble("blue.Temperature") - 273.15;
-						try {
+						try 
+						{
 							temp3 = Double
 									.parseDouble(status
 											.getStatusEntryRaw("Environment.Temperature.0"));
@@ -427,59 +453,86 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 							temp5 = Double
 									.parseDouble(status
 											.getStatusEntryRaw("Environment.Temperature.4"));
-						} catch (Exception e) {
-							System.err.println(icat
-									+ ":Env Temp value(s) not available");
+						} 
+						catch (Exception e) 
+						{
+							logError("dataUpdate:InstrumentStatus "+ icat
+									+ ":Env Temp value(s) not available",e);
 						}
-						try {
+						try 
+						{
 							hadu1 = status.getStatusEntryInt("red.Heater ADU");
-						} catch (Exception e) {
-							System.err.println(icat
-									+ ":ADU red value not available");
 						}
-						try {
+						catch (Exception e) 
+						{
+							logError("dataUpdate:InstrumentStatus "+ icat
+									+ ":ADU red value not available",e);
+						}
+						try 
+						{
 							hadu2 = status.getStatusEntryInt("blue.Heater ADU");
-						} catch (Exception e) {
-							System.err.println(icat
-									+ ":ADU blue value not available");
+						} 
+						catch (Exception e) 
+						{
+							logError("dataUpdate:InstrumentStatus "+ icat
+									+ ":ADU blue value not available",e);
 						}
-					} else if (icat.startsWith("IO:I")) {
+					}
+					else if (icat.startsWith("IO:I")) 
+					{
 						temp1 = status.getStatusEntryDouble("Temperature.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1") - 273.15;
 						heater_pcent = status.getStatusEntryDouble("Heater PCent");
-					} else if (icat.startsWith("RINGO")) {
+					}
+					else if (icat.startsWith("RINGO")) 
+					{
 						temp1 = status.getStatusEntryDouble("Temperature.0.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1.0") - 273.15;
 						temp3 = status.getStatusEntryDouble("Temperature.1.1") - 273.15;
-					} else if (icat.startsWith("SPRAT")) {
+					}
+					else if (icat.startsWith("SPRAT")) 
+					{
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 						temp2 = status.getStatusEntryDouble("Mechanism.Temperature.0");
 						temp3 = status.getStatusEntryDouble("Mechanism.Temperature.1");
 						humidity2 = status.getStatusEntryDouble("Mechanism.Humidity.0");
 						humidity3 = status.getStatusEntryDouble("Mechanism.Humidity.1");
-					} else if (icat.startsWith("LOTUS")) {
+					}
+					else if (icat.startsWith("LOTUS"))
+					{
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
-					} else if (icat.startsWith("MOPTOP")) {
+					}
+					else if (icat.startsWith("MOPTOP"))
+					{
 						temp1 = status.getStatusEntryDouble("Temperature.0") - 273.15;
 						temp2 = status.getStatusEntryDouble("Temperature.1") - 273.15;
-					} else {
+						log("dataUpdate:InstrumentStatus "+ icat + ":temp1: " + temp1 + ":temp2: " + temp2);
+					} 
+					else 
+					{
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
-						try {
+						try 
+						{
 							hadu = status.getStatusEntryInt("Heater ADU");
-						} catch (Exception e) {
-							System.err.println(icat
-									+ ":ADU value not available");
+						}
+						catch (Exception e) 
+						{
+							logError("dataUpdate:InstrumentStatus "+ icat
+									+ ":ADU value not available",e);
 						}
 					}
 
-					if (icat.equals("RATCAM")) {
+					if (icat.equals("RATCAM")) 
+					{
 						ratcamout.println(sdf.format(new Date(inst
 								.getTimeStamp()))
 								+ " "
 								+ netstat
 								+ " "
 								+ opstat + " " + temp1 + " " + hadu);
-					} else if (icat.startsWith("RINGO")) {
+					} 
+					else if (icat.startsWith("RINGO")) 
+					{
 						ringout.println(sdf.format(new Date(inst.getTimeStamp()))
 								+ " "
 								+ netstat
@@ -488,7 +541,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ temp1
 								+ " " + temp2 + " " + temp3);
-					} else if (icat.equals("IO:THOR")) {
+					} 
+					else if (icat.equals("IO:THOR")) 
+					{
 						thorout.println(sdf.format(new Date(inst.getTimeStamp()))
 								+ " "
 								+ netstat
@@ -497,7 +552,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ temp1
 								+ " " + hadu);
-					} else if (icat.equals("RISE")) {
+					} 
+					else if (icat.equals("RISE")) 
+					{
 						riseout.println(sdf.format(new Date(inst.getTimeStamp()))
 								+ " "
 								+ netstat
@@ -506,7 +563,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ temp1
 								+ " " + hadu);
-					} else if (icat.startsWith("FRODO")) {
+					} 
+					else if (icat.startsWith("FRODO")) 
+					{
 						frodoout.println(sdf.format(new Date(inst
 								.getTimeStamp()))
 								+ " "
@@ -525,7 +584,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ temp3
 								+ " "
 								+ temp4 + " " + temp5);
-					} else if (icat.equals("IO:O")) {
+					} 
+					else if (icat.equals("IO:O")) 
+					{
 						iooout.println(sdf.format(new Date(inst.getTimeStamp()))
 								+ " "
 								+ netstat
@@ -535,7 +596,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ temp1
 								+ " " + hadu);
 
-					} else if (icat.equals("IO:I")) {
+					} 
+					else if (icat.equals("IO:I")) 
+					{
 						ioiout.println(sdf.format(new Date(inst.getTimeStamp()))
 								+ " "
 								+ netstat
@@ -548,7 +611,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ heater_pcent);
 
-					} else if (icat.startsWith("SPRAT")) {
+					} 
+					else if (icat.startsWith("SPRAT")) 
+					{
 						spratout.println(sdf.format(new Date(inst
 								.getTimeStamp()))
 								+ " "
@@ -566,7 +631,8 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ " "
 								+ humidity3);
 					}
-					else if (icat.startsWith("LOTUS")) {
+					else if (icat.startsWith("LOTUS")) 
+					{
 						lotusout.println(sdf.format(new Date(inst
 								.getTimeStamp()))
 								+ " "
@@ -575,7 +641,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 								+ opstat
 								+ " "
 								+ temp1);
-					} else if (icat.startsWith("MOPTOP")) {
+					} 
+					else if (icat.startsWith("MOPTOP")) 
+					{
 						moptopout.println(sdf.format(new Date(inst.getTimeStamp()))
 								+ " "
 								+ netstat
@@ -597,7 +665,9 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 							+ sky.getExtinctionCat() + " "
 							+ sky.getPrediction());*/
 
-				} else if (status instanceof StateModelVariableStatus) {
+				} 
+				else if (status instanceof StateModelVariableStatus)
+				{
 
 					StateModelVariableStatus sms = (StateModelVariableStatus) status;
 					int weather = sms.getWeatherState();
@@ -620,37 +690,52 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 
 			}
 
-		} catch (Exception e) {
-			System.err.println("Error: " + e);
+		} 
+		catch (Exception e) 
+		{
+			logError("dataUpdate:Error: " + e,e);
 		}
 	}
 
 	private void processOverallState(long timestamp, InternalStatus l_rcs,
-			StateModelVariableStatus l_sm) {
+			StateModelVariableStatus l_sm) 
+	{
 
 		int system = -1;
 		int intent = -1;
 		int weather = -1;
 		int period = -1;
 
-		try {
+		try 
+		{
 			system = l_sm.getVariable("SYSTEM"); // suspend, okay, stby
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 		}
 
-		try {
+		try 
+		{
 			intent = l_sm.getVariable("INTENT"); // eng, auto
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 		}
 
-		try {
+		try 
+		{
 			weather = l_sm.getVariable("WEATHER"); // alert, clear
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 		}
 
-		try {
+		try 
+		{
 			period = l_sm.getVariable("PERIOD"); // daytime, nightime
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 		}
 
 		String aic = l_rcs.getAgentInControl();
@@ -662,32 +747,50 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 		int oas = -1;
 		String oasname = "UNKNOWN";
 
-		if (period == 18) {
+		if (period == 18) 
+		{
 			oas = 1;
 			oasname = "DAY";
-		} else if (weather == 9) {
+		} 
+		else if (weather == 9) 
+		{
 			oas = 2;
 			oasname = "WEATHER";
-		} else if (intent == 17) {
+		} 
+		else if (intent == 17) 
+		{
 			oas = 3;
 			oasname = "ENG";
-		} else if (system != 3) {
+		} 
+		else if (system != 3) 
+		{
 			oas = 4;
 			oasname = "SUSPEND";
-		} else {
-			if (aic.equals("SOCA")) {
+		} 
+		else 
+		{
+			if (aic.equals("SOCA")) 
+			{
 				oas = 5;
 				oasname = "SOCA";
-			} else if (aic.equals("BGCA")) {
+			} 
+			else if (aic.equals("BGCA")) 
+			{
 				oas = 6;
 				oasname = "BGCA";
-			} else if (aic.equals("CAL")) {
+			} 
+			else if (aic.equals("CAL")) 
+			{
 				oas = 7;
 				oasname = "CAL";
-			} else if (aic.equals("TOCA")) {
+			} 
+			else if (aic.equals("TOCA")) 
+			{
 				oas = 8;
 				oasname = "TOCA";
-			} else {
+			} 
+			else 
+			{
 				oas = 9;
 				oasname = "TRANSIENT";
 			}
@@ -700,5 +803,28 @@ public class DataFileWriter implements DataLoggerUpdateListener {
 		// 2012-10-31 T 18:00:00 SUSPEND AUTO CLEAR NIGHT NONE
 
 	}
-
+	
+	/**
+	 * Log the specified message to System.err, along with a timestamp.
+	 * @param message The message to log.
+	 */
+	protected void log(String message)
+	{
+		Date nowDate = new Date();
+		
+		System.err.println(nowDate+" "+this.getClass().getName()+" "+message);
+	}
+	
+	/**
+	 * Log the specified error message to System.err, along with a timestamp and a stack trace.
+	 * @param message The message to log.
+	 */
+	protected void logError(String message,Exception e)
+	{
+		Date nowDate = new Date();
+		
+		System.err.println(nowDate+" "+this.getClass().getName()+" "+message);
+		e.printStackTrace();
+	}
+	
 }
