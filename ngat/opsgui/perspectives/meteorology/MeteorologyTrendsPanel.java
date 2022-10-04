@@ -56,7 +56,9 @@ public class MeteorologyTrendsPanel extends JPanel {
 		pressureChart = addTrendPanel("Pressure", 700.0, 850.0);
 		//cloudChart = addTrendPanel("Cloud", -50.0, 0.0, -15.0, -10.0);
 		// New limits with new cloud sensor
-		cloudChart = addTrendPanel("Cloud", -50.0, 0.0, -40.0, -41.0);
+		//cloudChart = addTrendPanel("Cloud", -50.0, 0.0, -40.0, -41.0);
+		// magic pixel cloud
+		cloudChart = addTrendPanel("Cloud", 50.0, 150.0, 115.0, 114.0);
 		dustChart = addTrendPanel("Dust", 0.0, 100.0, 60.0, 20.0);
 
 		oilChart = addTrendPanel("Oil", -1.0, 40.0);

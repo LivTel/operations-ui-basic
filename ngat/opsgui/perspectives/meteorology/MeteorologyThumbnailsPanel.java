@@ -43,7 +43,7 @@ public class MeteorologyThumbnailsPanel extends JPanel {
 		dewpointChart = addThumbPanel("Dewpoint", 0.0, 1.0);
 		solarChart = addThumbPanel("Solar", 0.0, 1000.0);
 		pressureChart = addThumbPanel("Pressure", 700.0, 850.0);
-		cloudChart = addThumbPanel("Cloud", -50.0, 0.0);
+		cloudChart = addThumbPanel("Cloud", 50.0, 150.0);
 		dustChart = addThumbPanel("Dust", 0.0, 100.0);
 	}
 
