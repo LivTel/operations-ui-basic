@@ -43,49 +43,76 @@ public class InstrumentHealthThumbnailPanel extends JPanel {
 			for (int ii = 0; ii < instList.size(); ii++) {
 				InstrumentDescriptor id = (InstrumentDescriptor)instList.get(ii);
 				String instName = id.getInstrumentName();
-				if (instName.equalsIgnoreCase("FRODO")) {					
+				if (instName.equalsIgnoreCase("FRODO"))
+				{					
 					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "RED", -120.0, -50.0, Color.red);
 					charts.put(id.getInstrumentName(), tac);
 					createSubChart(tac, "BLUE", -120.0, 50.0, Color.blue);
-				} else if
-				(instName.equals("FRODO_RED")) {
+				}
+				else if (instName.equals("FRODO_RED"))
+				{
 					continue;
-				}else if
-				(instName.equals("FRODO_BLUE")) {
+				}
+				else if (instName.equals("FRODO_BLUE"))
+				{
 					continue;
-				}else if
-				(instName.equals("RINGO3")) {
+				}
+				else if(instName.equals("IO:O"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "IO:O", -120.0, -50.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
+				else if (instName.equals("IO:I"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "IO:I", -120.0, -50.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
+				else if (instName.equals("IO:THOR"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "IO:THOR", -120.0, -50.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
+				else if (instName.equals("LIRIC"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "LIRIC", -30.0, 30.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
+				else if (instName.equalsIgnoreCase("MOPTOP"))
+				{					
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "1", -50.0, 30.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+					createSubChart(tac, "2", -50.0, 30.0, Color.blue);
+				}
+				else if (instName.equals("MOPTOP_1"))
+				{
+					continue;
+				}
+				else if (instName.equals("MOPTOP_2"))
+				{
+					continue;
+				}
+				else if (instName.equals("RATCAM"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "RATCAM", -120.0, -50.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
+				else if(instName.equals("RINGO3"))
+				{
 					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "D", -120.0, -50.0, Color.red);
 					charts.put(id.getInstrumentName(), tac);
 					createSubChart(tac, "E", -120.0, 50.0, Color.blue);
 					createSubChart(tac, "F", -120.0, 50.0, Color.green);
-				}else if
-				(instName.equals("RATCAM")) {
-					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "RATCAM", -120.0, -50.0, Color.red);
-					charts.put(id.getInstrumentName(), tac);
-				}else if
-				(instName.equals("IO:O")) {
-					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "IO:O", -120.0, -50.0, Color.red);
-					charts.put(id.getInstrumentName(), tac);
-				}else if
-				(instName.equals("IO:I")) {
-					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "IO:I", -120.0, -50.0, Color.red);
-					charts.put(id.getInstrumentName(), tac);
-				} else if
-				(instName.equals("SPRAT")) {
-					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "SPRAT", -120.0, -50.0, Color.red);
-					charts.put(id.getInstrumentName(), tac);
-				}else if
-				(instName.equals("IO:THOR")) {
-					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "IO:THOR", -120.0, -50.0, Color.red);
-					charts.put(id.getInstrumentName(), tac);
-				}else if
-				(instName.equals("RISE")) {
+				}
+				else if (instName.equals("RISE"))
+				{
 					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "RISE", -100.0, -35.0, Color.red);
 					charts.put(id.getInstrumentName(), tac);
 				}
-				
-				
+				else if (instName.equals("SPRAT"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "SPRAT", -120.0, -50.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
 			}
 			
 			// autoguider
