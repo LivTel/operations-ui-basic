@@ -1,5 +1,6 @@
 /**
- * 
+ * This panel in a sub-panel that is put in TopPanel. It's displayed along the top of the opsgui,
+ * and is actually meant to be showing the free space of the various instrument disks/main Nas.
  */
 package ngat.opsgui.components;
 
@@ -33,11 +34,13 @@ public class TestPanel1 extends SummaryPane {
 	@Override
 	public void createPanel() {
 		// TODO Auto-generated method stub
+		// Only add instrument disks when the instrument writes to it's own local disks
+		// Some instruments write images to the NAS and don't need to be included here. 
 		addLine("OCC");
 		addLine("NAS-2");
 		addLine("Rise");
-		addLine("Ringo3-1");
-		addLine("Ringo3-2");
+		addLine("Moptop-1");
+		addLine("Moptop-2");
 		addLine("Autoguider");
 	}
 	
