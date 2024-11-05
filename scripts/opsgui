@@ -1,0 +1,18 @@
+#!/bin/csh
+
+source /opt/ngat/etc/cshrc
+source /occ/bin/class_setup
+source /occ/bin/x_setup
+source /occ/bin/rcx_setup
+
+setenv CLASSPATH /home/eng/rcsgui/jcommon-1.0.18.jar:$CLASSPATH
+#setenv CLASSPATH /home/eng/rcsgui/MyTestGui.jar:$CLASSPATH
+setenv CLASSPATH /home/eng/rcsgui/jfreechart-1.0.14.jar:$CLASSPATH
+#setenv CLASSPATH /home/eng/rcsgui/Operations_UI_Extra.jar:$CLASSPATH
+
+set ASTRO = "-Dastrometry.impl=ngat.astrometry.TestCalculator"
+
+#/usr/java/jdk1.6.0_16/bin/java -splash:/home/eng/rcsgui/lt_1.jpg  ngat.opsgui.base.Gui --remote.host localhost
+
+
+/usr/java/jdk1.6.0_16/bin/java $ASTRO  ngat.opsgui.base.Gui b
