@@ -43,7 +43,7 @@
       </layout>
     </user>
     -->
-    <!--User: Dr Rob Barnsley
+    <!--User: Dr Rob Barnsley 
     <user name="rab">
       <title>Dr</title>
       <first>Rob</first>
@@ -57,6 +57,13 @@
       <last>Clay</last>
       <icon />
     </user> -->
+    <!--User: Dr Doug Arnold 
+    <user name = "dma">
+      <title>Dr</title>
+      <first>Doug</first>
+      <last>Arnold</last>
+      <icon/>
+    </user> -->
     <!--User: Dr Chris Copperwheat -->
     <user name="cmc">
       <title>Dr</title>
@@ -64,13 +71,13 @@
       <last>Copperwheat</last>
       <icon />
     </user>
-    <!--User: Dr Eamonn Harvey -->
+    <!--User: Dr Eamonn Harvey 
     <user name = "ejh">
       <title>Dr</title>
       <first>Eamonn</first>
       <last>Harvey</last>
       <icon/>
-    </user>
+    </user> -->
     <!--User: Dr Helen Jermak -->
     <user name="hej">
       <title>Dr</title>
@@ -84,8 +91,8 @@
       <first>Marco</first>
       <last>Lam</last>
       <icon/>
-    </user>-->
-    <!--User: Dr John Marchant-->
+    </user> -->
+    <!--User: Dr Jon Marchant-->
     <user name="jmm">
       <title>Dr</title>
       <first>Jon</first>
