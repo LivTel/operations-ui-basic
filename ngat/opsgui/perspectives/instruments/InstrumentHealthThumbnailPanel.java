@@ -116,7 +116,7 @@ public class InstrumentHealthThumbnailPanel extends JPanel {
 			}
 			
 			// autoguider
-			TimeAxisChart tac = addThumbPanel("AUTOGUIDER", "AUTOGUIDER", -80.0, -20.0, Color.black);
+			TimeAxisChart tac = addThumbPanel("AUTOGUIDER", "AUTOGUIDER", -5.0, 5.0, Color.black);
 			charts.put("AUTOGUIDER", tac);
 			
 		} catch (Exception e) {
