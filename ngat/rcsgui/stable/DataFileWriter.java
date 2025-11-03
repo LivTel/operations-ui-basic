@@ -41,6 +41,7 @@ public class DataFileWriter implements DataLoggerUpdateListener
 	PrintStream lotusout;
 	PrintStream moptopout;
 	PrintStream liricout;
+	PrintStream lociout;
 	PrintStream seeout;
 
 	InternalStatus latest_rcs;
@@ -99,6 +100,8 @@ public class DataFileWriter implements DataLoggerUpdateListener
 				+ "/moptop.dat", true));
 		liricout = new PrintStream(new FileOutputStream(file.getPath()
 				+ "/liric.dat", true));
+		lociout = new PrintStream(new FileOutputStream(file.getPath()
+				+ "/loci.dat", true));
 
 		sdf.setTimeZone(UTC);
 
@@ -505,6 +508,10 @@ public class DataFileWriter implements DataLoggerUpdateListener
 					{
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
 					}
+					else if (icat.startsWith("LOCI"))
+					{
+						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
+					}
 					else if (icat.startsWith("LOTUS"))
 					{
 						temp1 = status.getStatusEntryDouble("Temperature") - 273.15;
@@ -641,6 +648,17 @@ public class DataFileWriter implements DataLoggerUpdateListener
 					else if (icat.startsWith("LIRIC")) 
 					{
 						liricout.println(sdf.format(new Date(inst
+								.getTimeStamp()))
+								+ " "
+								+ netstat
+								+ " "
+								+ opstat
+								+ " "
+								+ temp1);
+					} 
+					else if (icat.startsWith("LOCI")) 
+					{
+						lociout.println(sdf.format(new Date(inst
 								.getTimeStamp()))
 								+ " "
 								+ netstat

@@ -77,6 +77,11 @@ public class InstrumentHealthThumbnailPanel extends JPanel {
 					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "LIRIC", -30.0, 30.0, Color.red);
 					charts.put(id.getInstrumentName(), tac);
 				}
+				else if (instName.equals("LOCI"))
+				{
+					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "LOCI", -110.0, -10.0, Color.red);
+					charts.put(id.getInstrumentName(), tac);
+				}
 				else if (instName.equalsIgnoreCase("MOPTOP"))
 				{					
 					TimeAxisChart tac = addThumbPanel(id.getInstrumentName(), "1", -50.0, 30.0, Color.red);
@@ -250,6 +255,9 @@ public class InstrumentHealthThumbnailPanel extends JPanel {
 				return ((Double)statusBlock.get("Temperature"));
 		else if
 		(instName.equalsIgnoreCase("IO:I"))
+				return ((Double)statusBlock.get("Temperature"));
+		else if
+		(instName.equalsIgnoreCase("LOCI"))
 				return ((Double)statusBlock.get("Temperature"));
 		else if
 		(instName.equalsIgnoreCase("SPRAT"))

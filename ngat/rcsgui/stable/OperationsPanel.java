@@ -59,6 +59,7 @@ public class OperationsPanel extends JPanel {
 		i2i.put("IO:THOR", "W");
 		i2i.put("MOPTOP", "34");
 		i2i.put("LIRIC", "J");
+		i2i.put("LOCI", "K");
 	}
 
 	public static final Object[] lv = { new Integer(55), "15:12:23",
