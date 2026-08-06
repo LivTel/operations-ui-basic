@@ -64,6 +64,13 @@
       <last>Arnold</last>
       <icon/>
     </user> -->
+   <!--User: Mr David Copley -->
+    <user name="dc">
+      <title>Mr</title>
+      <first>David</first>
+      <last>Copley</last>
+      <icon />
+    </user>
     <!--User: Dr Chris Copperwheat -->
     <user name="cmc">
       <title>Dr</title>
@@ -78,6 +85,13 @@
       <last>Harvey</last>
       <icon/>
     </user> -->
+   <!--User: Mr David Heffernam -->
+    <user name="dh">
+      <title>Mr</title>
+      <first>David</first>
+      <last>Heffernam</last>
+      <icon />
+    </user>
     <!--User: Dr Helen Jermak -->
     <user name="hej">
       <title>Dr</title>
