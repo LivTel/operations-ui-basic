@@ -385,7 +385,13 @@ public class DataFileWriter implements DataLoggerUpdateListener
 
 								+ msc.getStatusEntryDouble("disk.usage.autoguider")
 								+ " "
-								+ (msc.getStatusEntryDouble("free.space.autoguider") / 1000000));
+								+ (msc.getStatusEntryDouble("free.space.autoguider") / 1000000)
+								+ " "
+								
+								+ msc.getStatusEntryDouble("disk.usage.o1")
+								+ " "
+								+ (msc.getStatusEntryDouble("free.space.o1") / 1000000)
+								);
 
 						log("dataUpdate:Dumping DISK status to: disks_lt.dat: occ: "
 										+ msc.getStatusEntryDouble("disk.usage.occ"));
